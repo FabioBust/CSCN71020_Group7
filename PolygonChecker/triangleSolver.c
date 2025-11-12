@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "triangleSolver.h"
 
@@ -22,6 +23,17 @@ char* analyzeTriangle(float side1, float side2, float side3) {
 
 	return result;
 }
+
+void angleCalculator(float side1, float side2, float side3) {
+	float angle1 = acos((side2 * side2 + side3 * side3 - side1 * side1) / 2 * side2 * side3);
+	float angle2 = acos((side1 * side1 + side3 * side3 - side2 * side2) / 2 * side1 * side3);
+	float angle3 = 180 - angle1 - angle2;
+
+	printf("The inside angles in the triangle are:\n");
+	printf("Angle 1: %lf", angle1);
+	printf("Angle 2: %lf", angle2);
+	printf("Angle 3: %lf", angle3);
+  }
 
 bool isTriangle(float side1, float side2, float side3) {
 	int sides[] = { side1, side2, side3 };
