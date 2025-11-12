@@ -6,7 +6,7 @@
 
 int side = 0;
 
-int main() { //main function
+int main() { //main
 	bool continueProgram = true;
 	while (continueProgram) {
 		printWelcome();
