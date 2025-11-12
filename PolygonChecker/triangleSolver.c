@@ -4,9 +4,9 @@
 
 #include "triangleSolver.h"
 
-char* analyzeTriangle(int side1, int side2, int side3) {
+char* analyzeTriangle(float side1, float side2, float side3) {
 	char* result = "";
-	if (side1 <= 0 || side2 <= 0 || side3 <= 0) {
+	if (isTriangle(side1, side2, side3) == false) {
 		result = "Not a triangle";
 	}
 	else if (side1 == side2 && side1 == side3) {
@@ -33,4 +33,23 @@ void angleCalculator(float side1, float side2, float side3) {
 	printf("Angle 1: %lf", angle1);
 	printf("Angle 2: %lf", angle2);
 	printf("Angle 3: %lf", angle3);
+  }
+
+bool isTriangle(float side1, float side2, float side3) {
+	int sides[] = { side1, side2, side3 };
+	int max = 0; //get the max side length
+ 
+	for (int i = 0; i < 3; i++) {
+		if (sides[i] > max) {
+			max = i;
+		}
+		if (sides[i] <= 0) {
+			return false;
+		}
+	}
+	//now use triangle theorem to return if side lengths equal (max < side1 + side2)
+	if (sides[max] < sides[(max - 1) % 3] + sides[(max + 1) % 3]) {
+		return true;
+	}
+	return false;
 }
