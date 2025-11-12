@@ -26,6 +26,9 @@ int main() { //main FUNCTION
 		case 0:
 			continueProgram = false;
 			break;
+		default:
+			printf("This is not a triangle");
+			break;
 		}
 	}
 	return 0;
