@@ -25,9 +25,9 @@ char* analyzeTriangle(float side1, float side2, float side3) {
 }
 
 void angleCalculator(float side1, float side2, float side3) {
-	float angle1 = acos((side2 * side2 + side3 * side3 - side1 * side1) / 2 * side2 * side3);
-	float angle2 = acos((side1 * side1 + side3 * side3 - side2 * side2) / 2 * side1 * side3);
-	float angle3 = 180 - angle1 - angle2;
+	double angle1 = acos((side2 * side2 + side3 * side3 - side1 * side1) / 2 * side2 * side3);
+	double angle2 = acos((side1 * side1 + side3 * side3 - side2 * side2) / 2 * side1 * side3);
+	double angle3 = 180 - angle1 - angle2;
 
 	printf("The inside angles in the triangle are:\n");
 	printf("Angle 1: %lf", angle1);
