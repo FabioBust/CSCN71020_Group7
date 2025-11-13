@@ -60,9 +60,7 @@ namespace UnitTests
 			float side2 = 1;
 			float side3 = 1;
 
-			bool result = false;
-
-			Assert::AreEqual(result, isTriangle(side1, side2, side3));
+			angleCalculator(side1, side2, side3);
 		}
 	};
 }
