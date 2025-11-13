@@ -20,6 +20,9 @@ int main() { //main FUNCTION
 			float* triangleSidesPtr = getTriangleSides(triangleSides);
 			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			printf_s("%s\n", result);
+			if (result != "Not a triangle") {
+				angleCalculator(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			}
 			break;
 		case 0:
 			continueProgram = false;
