@@ -40,5 +40,29 @@ namespace UnitTests
 
 			Assert::AreEqual(result, isTriangle(side1, side2, side3));
 		}
+
+		TEST_METHOD(isTriangleInValidIntNegative)
+		{
+			float side1 = 1;
+			float side2 = -2;
+			float side3 = 5;
+
+			bool result = false;
+
+			Assert::AreEqual(result, isTriangle(side1, side2, side3));
+		}
+	};
+	TEST_CLASS(TriangleAngleTests)
+	{
+		TEST_METHOD(isTriangleInValidIntNegative) //rewrite the angle solver to return values for testing
+		{
+			float side1 = 1;
+			float side2 = 1;
+			float side3 = 1;
+
+			bool result = false;
+
+			Assert::AreEqual(result, isTriangle(side1, side2, side3));
+		}
 	};
 }
