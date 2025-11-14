@@ -35,9 +35,9 @@ void angleCalculator(float side1, float side2, float side3) { //still needs test
 	angle3 = angle3 * 180 / pi;
 
 	printf("The inside angles in the triangle are:\n");
-	printf("Angle 1: %lf", angle1);
-	printf("Angle 2: %lf", angle2);
-	printf("Angle 3: %lf", angle3);
+	printf("Angle 1: %lf\n", angle1);
+	printf("Angle 2: %lf\n", angle2);
+	printf("Angle 3: %lf\n", angle3);
   }
 
 bool isTriangle(float side1, float side2, float side3) {
