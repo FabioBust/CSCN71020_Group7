@@ -3,7 +3,7 @@
 #include <math.h>
 
 #include "triangleSolver.h"
-int pi = 3.14;
+double pi = 3.1415926535;
 
 char* analyzeTriangle(float side1, float side2, float side3) {
 	char* result = "";
@@ -35,9 +35,9 @@ void angleCalculator(float side1, float side2, float side3) { //still needs test
 	angle3 = angle3 * 180 / pi;
 
 	printf("The inside angles in the triangle are:\n");
-	printf("Angle 1: %lf\n", angle1);
-	printf("Angle 2: %lf\n", angle2);
-	printf("Angle 3: %lf\n", angle3);
+	printf("Angle 1: %.2f\n", angle1);
+	printf("Angle 2: %.2f\n", angle2);
+	printf("Angle 3: %.2f\n", angle3);
   }
 
 bool isTriangle(float side1, float side2, float side3) {
