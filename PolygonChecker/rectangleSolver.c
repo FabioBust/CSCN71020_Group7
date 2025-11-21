@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include "rectangleSolver.h"
+#include <math.h>
 
 
 int Perimeter(int points[]) {
@@ -17,6 +18,9 @@ int Area(int points[]) {
 
 	return area;
 }
+
+typedef struct {double x,y} Point;
+
 void pointSorter(int points[], int out[]) { //matthew
 
 	struct Point { float x, y; } c[4]; //create array for each corner
@@ -55,19 +59,23 @@ void pointSorter(int points[], int out[]) { //matthew
 	pointSorter(points, sorted);*/
 }
 
-bool isRectangle(int points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
-	float max = points[1];
-	float min = points[2];
+bool is_rectangle(Point p1, Point p2, Point p3, Point p4) {
+	Point centroid = { 0,0 };
+	centroid.x = (p1.x + p2.x + p3.x + p3.x) / 4.0;
+	centroid.y = (p1.y + p2.y + p3.y + p3.y) / 4.0;
 
-	float checkP1 = points[0];
-	float checkP2 = points[3];
+	// Midpoint of AC and BD must both equal centroid
+	double mx1 = (p1.x + p3.x) / 2, my1 = (p1.y + p3.y) / 2;
+	double mx2 = (p2.x + p4.x) / 2, my2 = (p2.y + p4.y) / 2;
 
-	if (checkP1[1] != max[1] || checkP1[0] != min[0]) { //point to check is invalid
+
+	if (fabs(mx1 - centroid.x) > 1e-9 || fabs(my1 - centroid.y) > 1e-9) return false; 
+	if (fabs(mx2 - centroid.x) > 1e-9 || fabs(my2 - centroid.y) > 1e-9) return false;
+
+	// Now check one right angle (dot product = 0)
+	double ax = p2.x - p1.x, ay = p2.y - p1.y;
+	double dx = p4.x - p1.x, dy = p4.y - p1.y;
+	if (fabs(ax * dx + ay * dy) < 1e-8 == 0)
 		return false;
-	}
-	if (checkP2[0] != max[0] || checkP2[1] != min[1]) { //point to check is invalid
-		return false;
-	}
-
 	return true;
 }
