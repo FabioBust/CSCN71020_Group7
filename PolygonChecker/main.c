@@ -25,6 +25,11 @@ int main() { //main FUNCTION
 				angleCalculator(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			}
 			break;
+		case 2:
+			printf_s("Rectangle selected.\n");
+			float points[4][4] = { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} };
+			float* pointsPtr = getpoints(points);
+			break;
 		case 0:
 			continueProgram = false;
 			break;
@@ -63,4 +68,16 @@ float* getTriangleSides(float* triangleSides) {
 		scanf_s("%f", &triangleSides[i]);
 	}
 	return triangleSides;
+}
+
+float* getPoints(float* points) {
+	printf_s("Enter the four points for the rectangle: ");
+	for (int i = 0; i < 4; i++)
+	{
+		printf("Enter the x value of point: ");
+		scanf_s("%f", &points[i*2]);
+		printf("Enter the y value of points: ");
+		scanf_s("%f", &points[i*2+1]);
+	}
+	return points;
 }

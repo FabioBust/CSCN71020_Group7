@@ -7,6 +7,7 @@ int Perimeter(int points[]) {
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float perimeter = 2 * (a + b);
 
+	
 	return perimeter;
 }
 int Area(int points[]) {
@@ -53,6 +54,10 @@ void pointSorter(int points[], int out[]) { //matthew
 	* call for function
 	int sorted[8];
 	pointSorter(points, sorted);*/
+	return area; 
+}
+int* pointSorter(int points[]) { //matthew
+
 }
 
 bool isRectangle(int points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
