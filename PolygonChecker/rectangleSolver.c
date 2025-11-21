@@ -2,7 +2,7 @@
 #include "rectangleSolver.h"
 
 
-int Perimeter(int points[]) {
+float Perimeter(float points[]) {
 	float a = points[1 * 2] - points[0 * 2];
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float perimeter = 2 * (a + b);
@@ -10,14 +10,14 @@ int Perimeter(int points[]) {
 	
 	return perimeter;
 }
-int Area(int points[]) {
+float Area(float points[]) {
 	float a = points[1 * 2] - points[0 * 2];
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float area = a * b;
 
 	return area;
 }
-void pointSorter(int points[], int out[]) { //matthew
+void pointSorter(float points[], float out[]) { //matthew
 
 	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
@@ -53,14 +53,9 @@ void pointSorter(int points[], int out[]) { //matthew
 	* call for function
 	int sorted[8];
 	pointSorter(points, sorted);*/
-	return area; 
-}
-int* pointSorter(int points[]) { //matthew
-
 }
 
-
-bool isRectangle(int points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
+bool isRectangle(float points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
 	float max = points[1];
 	float min = points[2];
 
