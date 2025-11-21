@@ -18,8 +18,7 @@ int Area(int points[]) {
 }
 void pointSorter(int points[], int out[]) { //matthew
 
-	struct Point { float x, y }; //float for each x,y
-	c[4]; //create array for each corner
+	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
 		c[i].x = points[i * 2];
 		c[i].y = points[i + 2 + 1];
@@ -53,6 +52,7 @@ void pointSorter(int points[], int out[]) { //matthew
 	* call for function
 	int sorted[8];
 	pointSorter(points, sorted);*/
+}
 }
 
 bool isRectangle(int points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
