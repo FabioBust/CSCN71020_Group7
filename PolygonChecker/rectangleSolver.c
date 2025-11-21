@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-int Perimeter(int points[]) {
+float Perimeter(float points[]) {
 	float a = points[1 * 2] - points[0 * 2];
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float perimeter = 2 * (a + b);
@@ -11,7 +11,7 @@ int Perimeter(int points[]) {
 	
 	return perimeter;
 }
-int Area(int points[]) {
+float Area(float points[]) {
 	float a = points[1 * 2] - points[0 * 2];
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float area = a * b;
@@ -21,7 +21,8 @@ int Area(int points[]) {
 
 typedef struct {double x,y} Point;
 
-void pointSorter(int points[], int out[]) { //matthew
+
+void pointSorter(float points[], float out[]) { //matthew
 
 	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
@@ -68,7 +69,7 @@ bool is_rectangle(Point p1, Point p2, Point p3, Point p4) {
 	double mx1 = (p1.x + p3.x) / 2, my1 = (p1.y + p3.y) / 2;
 	double mx2 = (p2.x + p4.x) / 2, my2 = (p2.y + p4.y) / 2;
 
-
+  //check if parallel
 	if (fabs(mx1 - centroid.x) > 1e-9 || fabs(my1 - centroid.y) > 1e-9) return false; 
 	if (fabs(mx2 - centroid.x) > 1e-9 || fabs(my2 - centroid.y) > 1e-9) return false;
 
