@@ -53,7 +53,7 @@ void pointSorter(int points[], int out[]) { //matthew
 	int sorted[8];
 	pointSorter(points, sorted);*/
 }
-}
+
 
 bool isRectangle(int points[]) { //me //point order, topleft(0) to bottom right(3), max point is (1) min point is (2)
 	float max = points[1];
