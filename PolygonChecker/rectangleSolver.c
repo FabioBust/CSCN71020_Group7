@@ -21,6 +21,8 @@ float Area(float points[]) {
 
 void pointSorter(float points[], float out[]) { //matthew
 
+void pointSorter(int points[], int out[]) { //matthew
+
 	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
 		c[i].x = points[i * 2];
@@ -66,8 +68,8 @@ bool is_rectangle(float p1[], float p2[], float p3[], float p4[]) {
 	float mx2 = (p2[0] + p4[0]) / 2, my2 = (p2[1] + p4[1]) / 2;
 
 
-	if (fabs(mx1 - centroid[0]) > 1e-9 || fabs(my1 - centroid[1]) > 1e-9) return false;
-	if (fabs(mx2 - centroid[0]) > 1e-9 || fabs(my2 - centroid[1]) > 1e-9) return false;
+	if (fabs(mx1 - centroid.x) > 1e-9 || fabs(my1 - centroid.y) > 1e-9) return false; 
+	if (fabs(mx2 - centroid.x) > 1e-9 || fabs(my2 - centroid.y) > 1e-9) return false;
 
 	// Now check one right angle (dot product = 0)
 	float ax = p2[0] - p1[0], ay = p2[1] - p1[1];
