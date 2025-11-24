@@ -27,8 +27,8 @@ int main() { //main FUNCTION
 			break;
 		case 2:
 			printf_s("Rectangle selected.\n");
-			float points[4][4] = { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} };
-			float* pointsPtr = getpoints(points);
+			float points[4][2] = { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} };
+			float* pointsPtr = getPoints(points);
 			break;
 		case 0:
 			continueProgram = false;

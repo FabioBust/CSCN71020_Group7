@@ -1,5 +1,5 @@
 #pragma once
-int Perimeter(int points[]);
-int Area(int points[]);
-void pointSorter(int points[], int out[]);
-bool is_rectangle(Point p1, Point p2, Point p3, Point p4);
+float Perimeter(float points[]);
+float Area(float points[]);
+void pointSorter(float points[], float out[]);
+bool is_rectangle(float p1[], float p2[], float p3[], float p4[]);

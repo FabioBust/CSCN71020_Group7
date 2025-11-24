@@ -19,10 +19,9 @@ float Area(float points[]) {
 	return area;
 }
 
-typedef struct {double x,y} Point;
-
-
 void pointSorter(float points[], float out[]) { //matthew
+
+void pointSorter(int points[], int out[]) { //matthew
 
 	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
@@ -60,22 +59,21 @@ void pointSorter(float points[], float out[]) { //matthew
 	pointSorter(points, sorted);*/
 }
 
-bool is_rectangle(Point p1, Point p2, Point p3, Point p4) {
-	Point centroid = { 0,0 };
-	centroid.x = (p1.x + p2.x + p3.x + p3.x) / 4.0;
-	centroid.y = (p1.y + p2.y + p3.y + p3.y) / 4.0;
+bool is_rectangle(float p1[], float p2[], float p3[], float p4[]) {
 
-	// Midpoint of AC and BD must both equal centroid
-	double mx1 = (p1.x + p3.x) / 2, my1 = (p1.y + p3.y) / 2;
-	double mx2 = (p2.x + p4.x) / 2, my2 = (p2.y + p4.y) / 2;
+	float size = 4.0;
+	float centroid[] = { (p1[0] + p2[0] + p3[0] + p3[0]) / size, (p1[1] + p2[1] + p3[1] + p3[1]) / size };
 
-  //check if parallel
+	float mx1 = (p1[0] + p3[0]) / 2, my1 = (p1[1] + p3[1]) / 2;
+	float mx2 = (p2[0] + p4[0]) / 2, my2 = (p2[1] + p4[1]) / 2;
+
+
 	if (fabs(mx1 - centroid.x) > 1e-9 || fabs(my1 - centroid.y) > 1e-9) return false; 
 	if (fabs(mx2 - centroid.x) > 1e-9 || fabs(my2 - centroid.y) > 1e-9) return false;
 
 	// Now check one right angle (dot product = 0)
-	double ax = p2.x - p1.x, ay = p2.y - p1.y;
-	double dx = p4.x - p1.x, dy = p4.y - p1.y;
+	float ax = p2[0] - p1[0], ay = p2[1] - p1[1];
+	float dx = p4[0] - p1[0], dy = p4[1] - p1[1];
 	if (fabs(ax * dx + ay * dy) < 1e-8 == 0)
 		return false;
 	return true;
