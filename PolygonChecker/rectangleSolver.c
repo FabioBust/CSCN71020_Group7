@@ -10,10 +10,25 @@ float Perimeter(float points[]) {
 
 	return perimeter;
 }
-float Area(float points[]) {
-	float a = points[1 * 2] - points[0 * 2];
-	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
-	float area = a * b;
+float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
+	float points[4][2] = {
+		{ p1[0], p1[1] },
+		{ p2[0], p2[1] },
+		{ p3[0], p3[1] },
+		{ p4[0], p4[1] }
+	};
+
+	float d1 = distanceSquared(points[0], points[1);  // side
+	float d2 = distanceSquared(points[0], points[2);  // diagonal
+	float d3 = distanceSquared(points[0], points[3]);  // other side
+
+	float distances[3] = { d1, d2, d3 };
+
+	int maxIdx = 0;
+	if (distances[1] > distances[maxIdx]) maxIdx = 1;
+	if (distances[2] > distances[maxIdx]) maxIdx = 2;
+
+	float area = distances[(maxIdx - 1) % 3] * distances[(maxIdx + 1) % 3];
 
 	return area;
 }
