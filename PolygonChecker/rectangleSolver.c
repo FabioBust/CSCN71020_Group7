@@ -3,12 +3,20 @@
 #include <math.h>
 
 
-float Perimeter(float points[]) {
-	float a = points[1 * 2] - points[0 * 2];
-	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
-	float perimeter = 2 * (a + b);
+float Perimeter(float p1[2], float p2[2], float p3[2], float p4[2]) {
+	float points[4][2] = {
+		{ p1[0], p1[1] },
+		{ p2[0], p2[1] },
+		{ p3[0], p3[1] },
+		{ p4[0], p4[1] }
+	};
 
-	return perimeter;
+	float perim = 0.0f;
+
+	for (int i = 1; i <= 4; i++) {
+		perim += sqrt(distanceSquared(points[i - 1], points[i % 4]));
+	}
+	return perim;
 }
 float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 	float points[4][2] = {
@@ -28,7 +36,7 @@ float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 	if (distances[1] > distances[maxIdx]) maxIdx = 1;
 	if (distances[2] > distances[maxIdx]) maxIdx = 2;
 
-	return sqrt(distances[(maxIdx + 1) % 3]) * sqrt(distances[(maxIdx - 1) % 3]);
+	return sqrt(distances[(maxIdx + 1) % 3]) * sqrt(distances[(maxIdx + 2) % 3]);
 
 }
 
