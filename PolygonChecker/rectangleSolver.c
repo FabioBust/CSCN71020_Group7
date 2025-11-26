@@ -18,9 +18,9 @@ float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 		{ p4[0], p4[1] }
 	};
 
-	float d1 = distanceSquared(points[0], points[1);  // side
-	float d2 = distanceSquared(points[0], points[2);  // diagonal
-	float d3 = distanceSquared(points[0], points[3]);  // other side
+	float d1 = distanceSquared(points[0], points[(1) % 4]);  // side
+	float d2 = distanceSquared(points[0], points[(2) % 4]);  // diagonal
+	float d3 = distanceSquared(points[0], points[(3) % 4]);  // other side
 
 	float distances[3] = { d1, d2, d3 };
 
@@ -28,9 +28,8 @@ float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 	if (distances[1] > distances[maxIdx]) maxIdx = 1;
 	if (distances[2] > distances[maxIdx]) maxIdx = 2;
 
-	float area = distances[(maxIdx - 1) % 3] * distances[(maxIdx + 1) % 3];
+	return sqrt(distances[(maxIdx + 1) % 3]) * sqrt(distances[(maxIdx - 1) % 3]);
 
-	return area;
 }
 
 void pointSorter(float points[], float out[]) { //matthew
@@ -78,7 +77,7 @@ float distanceSquared(float p1[2], float p2[2])
 	return dx * dx + dy * dy;          
 }
 
-bool isRectangle(float p1[2], float p2[2], float p3[2], float p4[2])
+bool isRectangle(float p1[2], float p2[2], float p3[2], float p4[2]) //returns area or -1
 {
 	float points[4][2] = {
 		{ p1[0], p1[1] },
@@ -86,6 +85,7 @@ bool isRectangle(float p1[2], float p2[2], float p3[2], float p4[2])
 		{ p3[0], p3[1] },
 		{ p4[0], p4[1] }
 	};
+
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -106,6 +106,7 @@ bool isRectangle(float p1[2], float p2[2], float p3[2], float p4[2])
 
 		if (fabs(distances[maxIdx] - sumOfSquares) > 0.01f)
 			return false;
+
 	}
 
 	return true;   
