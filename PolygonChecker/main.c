@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "triangleSolver.h"
+#include "rectangleSolver.h"
 
 
 
@@ -29,6 +30,15 @@ int main() { //main FUNCTION
 			printf_s("Rectangle selected.\n");
 			float points[4][2] = { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} };
 			float* pointsPtr = getPoints(points);
+
+			if (isRectangle(points[0], points[1], points[2], points[3] )) {  // pass the whole array
+				printf("Yes, these 4 points form a rectangle!\n");
+				float area = Area(pointsPtr);
+				float perimeter = Perimeter(pointsPtr);
+				printf("Area = %.2f\n", area);
+				printf("Perimeter = %.2f\n", perimeter);
+			}
+
 			break;
 		case 0:
 			continueProgram = false;
@@ -50,6 +60,7 @@ void printWelcome() {
 }
 
 int printShapeMenu() {
+	printf_s("2. Rectangle\n");
 	printf_s("1. Triangle\n");
 	printf_s("0. Exit\n");
 

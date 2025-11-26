@@ -8,7 +8,6 @@ float Perimeter(float points[]) {
 	float b = points[2 * 2 + 1] - points[0 * 2 + 1];
 	float perimeter = 2 * (a + b);
 
-	
 	return perimeter;
 }
 float Area(float points[]) {
@@ -20,8 +19,6 @@ float Area(float points[]) {
 }
 
 void pointSorter(float points[], float out[]) { //matthew
-
-void pointSorter(int points[], int out[]) { //matthew
 
 	struct Point { float x, y; } c[4]; //create array for each corner
 	for (int i = 0; i < 4; i++) { //put inputs into struct point
@@ -59,22 +56,42 @@ void pointSorter(int points[], int out[]) { //matthew
 	pointSorter(points, sorted);*/
 }
 
-bool is_rectangle(float p1[], float p2[], float p3[], float p4[]) {
+float distanceSquared(float p1[2], float p2[2])  
+{
+	float dx = p1[0] - p2[0];
+	float dy = p1[1] - p2[1];
+	return dx * dx + dy * dy;          
+}
 
-	float size = 4.0;
-	float centroid[] = { (p1[0] + p2[0] + p3[0] + p3[0]) / size, (p1[1] + p2[1] + p3[1] + p3[1]) / size };
+bool isRectangle(float p1[2], float p2[2], float p3[2], float p4[2])
+{
+	float points[4][2] = {
+		{ p1[0], p1[1] },
+		{ p2[0], p2[1] },
+		{ p3[0], p3[1] },
+		{ p4[0], p4[1] }
+	};
 
-	float mx1 = (p1[0] + p3[0]) / 2, my1 = (p1[1] + p3[1]) / 2;
-	float mx2 = (p2[0] + p4[0]) / 2, my2 = (p2[1] + p4[1]) / 2;
+	for (int i = 0; i < 4; i++)
+	{
+		float d1 = distanceSquared(points[i], points[(i + 1) % 4]);  // side
+		float d2 = distanceSquared(points[i], points[(i + 2) % 4]);  // diagonal
+		float d3 = distanceSquared(points[i], points[(i + 3) % 4]);  // other side
 
+		float distances[3] = { d1, d2, d3 };
 
-	if (fabs(mx1 - centroid.x) > 1e-9 || fabs(my1 - centroid.y) > 1e-9) return false; 
-	if (fabs(mx2 - centroid.x) > 1e-9 || fabs(my2 - centroid.y) > 1e-9) return false;
+		int maxIdx = 0;
+		if (distances[1] > distances[maxIdx]) maxIdx = 1;
+		if (distances[2] > distances[maxIdx]) maxIdx = 2;
 
-	// Now check one right angle (dot product = 0)
-	float ax = p2[0] - p1[0], ay = p2[1] - p1[1];
-	float dx = p4[0] - p1[0], dy = p4[1] - p1[1];
-	if (fabs(ax * dx + ay * dy) < 1e-8 == 0)
-		return false;
-	return true;
+		float sumOfSquares = 0;
+		for (int j = 0; j < 3; j++)
+			if (j != maxIdx)
+				sumOfSquares += distances[j];
+
+		if (fabs(distances[maxIdx] - sumOfSquares) > 0.01f)
+			return false;
+	}
+
+	return true;   
 }
