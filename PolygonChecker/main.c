@@ -33,8 +33,8 @@ int main() { //main FUNCTION
 
 			if (isRectangle(points[0], points[1], points[2], points[3] )) {  // pass the whole array
 				printf("Yes, these 4 points form a rectangle!\n");
-				float area = Area(pointsPtr);
-				float perimeter = Perimeter(pointsPtr);
+				float area = Area(points[0], points[1], points[2], points[3]);
+				float perimeter = Perimeter(points[0], points[1], points[2], points[3]);
 				printf("Area = %.2f\n", area);
 				printf("Perimeter = %.2f\n", perimeter);
 			}
