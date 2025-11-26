@@ -14,7 +14,7 @@ float Perimeter(float p1[2], float p2[2], float p3[2], float p4[2]) {
 	float perim = 0.0f;
 
 	for (int i = 1; i <= 4; i++) {
-		perim += sqrt(distanceSquared(points[i - 1], points[i % 4]));
+		perim += (float)sqrt(distanceSquared(points[i - 1], points[i % 4]));
 	}
 	return perim;
 }
@@ -40,42 +40,56 @@ float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 
 }
 
-void pointSorter(float points[], float out[]) { //matthew
+const float* pointSorter(float p1[2], float p2[2], float p3[2], float p4[2] ) { //matthew
+	float centroid = { (p1[0] + p2[0] + p3[0] + p4[0]) / 4.0f, (p1[1] + p2[1] + p3[1] + p4[1]) / 4.0f };
 
-	struct Point { float x, y; } c[4]; //create array for each corner
-	for (int i = 0; i < 4; i++) { //put inputs into struct point
-		c[i].x = points[i * 2];
-		c[i].y = points[i + 2 + 1];
-	}
-	int tl = 0, tr = 0, br = 0, bl = 0; //create ints for each corner (top left, top right, bottom right, bottom left)
+	float points[4][2] = {
+		{ p1[0], p1[1] },
+		{ p2[0], p2[1] },
+		{ p3[0], p3[1] },
+		{ p4[0], p4[1] }
+	};
 
-	for (int i = 1; i < 4; i++) { //top left, min y, min x
-		if (c[i].y < c[tl].y || (c[i].y == c[tl].y && c[i].x < c[tl].x))
-			tl = i;
-	}
-	for (int i = 1; i < 4; i++) { //top right, min y, max x
-		if (c[i].y < c[tr].y || (c[i].y == c[tr].y && c[i].x > c[tr].x))
-			tr = i;
-	}
-	for (int i = 1; i < 4; i++) { //bottom right, max y, max x
-		if (c[i].y > c[br].y || (c[i].y == c[br].y && c[i].x > c[br].x))
-			br = i;
-	}
-	for (int i = 1; i < 4; i++) { //bottom left, max y, min x
-		if (c[i].y > c[bl].y || (c[i].y == c[bl].y && c[i].x < c[bl].x))
-			bl = i;
-	}
-	struct Point order[4] = { c[tl], c[tr], c[br], c[bl] };
-
-	for (int i = 0; i < 4; i++) { //copy points into array when called
-		out[i * 2] = order[i].x;
-		out[i * 2 + 1] = order[i].y;
+	//get one point (0) and sort based off of angle to that point
+	//center points around centroid
+	for (int i = 0; i < 4; i++) {
+		points[i][0] -= centroid[0];
+		points[i][1] -= centroid[1];
 	}
 
-	/*
-	* call for function
-	int sorted[8];
-	pointSorter(points, sorted);*/
+	float angles[4][2];
+	for (int i = 0; i < 4; i++) {
+		angles[i][0] = atan2(points[i][1], points[i][0]);
+		angles[i][1] = i;
+	}
+
+	//bubble sort
+	for (int i = 0; i < 4 - 1; i++) {
+		// Flag to optimize: if no swaps occur in a pass, the array is sorted
+		bool swapped = false;
+		for (int j = 0; j < 4 - i - 1; j++) {
+			// Compare adjacent elements and swap if out of order (for ascending)
+			if (angles[j][0] > angles[j + 1][0]) {
+				swap(&points[angles[j][1]], &points[angles[j+1][1]]);
+				swap(&angles[j], &angles[j+1]);
+				swapped = true; // A swap occurred
+			}
+		}
+		// If no two elements were swapped by inner loop, then break
+		if (swapped == false) {
+			break;
+		}
+	}
+
+	return points;
+
+}
+
+void swap(int* a, int* b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+
 }
 
 float distanceSquared(float p1[2], float p2[2])  
