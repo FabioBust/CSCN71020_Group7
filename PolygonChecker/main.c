@@ -51,6 +51,13 @@ int main() {
             }
             else {
                 printf_s("No, these points do not form a rectangle.\n");
+                
+                float(*sorted)[2] = pointSorter(points[0], points[1], points[2], points[3]);
+                float perimeter = Perimeter(sorted[0], sorted[1], sorted[2], sorted[3]);
+                
+                printf_s("Perimeter = %.2f\n", perimeter);
+                
+                free(sorted);
             }
             break;
         }
