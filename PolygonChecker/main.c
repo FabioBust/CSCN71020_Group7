@@ -91,13 +91,13 @@ float* getTriangleSides(float* triangleSides) {
     return triangleSides;
 }
 
-float* getPoints(float points[4][2]) {  // Keep return type float* like you had
-    printf_s("Enter the four points (x and y for each):\n");
-    for (int i = 0; i < 4; i++) {
-        printf_s("Point %d - x: ", i + 1);
-        scanf_s("%f", &points[i][0]);
-        printf_s("          y: ");
-        scanf_s("%f", &points[i][1]);
-    }
-    return &points[0][0];  // Return pointer to first element (safe in this context)
+void getPoints(float points[4][2]) {
+	printf_s("Enter the four points for the rectangle: ");
+	for (int i = 0; i < 4; i++)
+	{
+		printf("Enter the x value of point: ");
+		scanf_s("%f", &points[i][0]);
+		printf("Enter the y value of points: ");
+		scanf_s("%f", &points[i][1]);
+	}
 }
