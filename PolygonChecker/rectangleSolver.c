@@ -4,20 +4,14 @@
 
 
 float Perimeter(float p1[2], float p2[2], float p3[2], float p4[2]) {
-	float points[4][2] = {
-		{ p1[0], p1[1] },
-		{ p2[0], p2[1] },
-		{ p3[0], p3[1] },
-		{ p4[0], p4[1] }
-	};
-
 	float perim = 0.0f;
-
-	for (int i = 1; i <= 4; i++) {
-		perim += (float)sqrt(distanceSquared(points[i - 1], points[i % 4]));
-	}
+	perim += (float)sqrt(distanceSquared(p1, p2));
+	perim += (float)sqrt(distanceSquared(p2, p3));
+	perim += (float)sqrt(distanceSquared(p3, p4));
+	perim += (float)sqrt(distanceSquared(p4, p1));
 	return perim;
 }
+
 float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 	float points[4][2] = {
 		{ p1[0], p1[1] },
@@ -40,56 +34,47 @@ float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
 
 }
 
-const float* pointSorter(float p1[2], float p2[2], float p3[2], float p4[2] ) { //matthew
-	float centroid = { (p1[0] + p2[0] + p3[0] + p4[0]) / 4.0f, (p1[1] + p2[1] + p3[1] + p4[1]) / 4.0f };
+ void pointSorter(float points[4][2]) { 
+	 float centroid[2] = { 0 };
 
-	float points[4][2] = {
-		{ p1[0], p1[1] },
-		{ p2[0], p2[1] },
-		{ p3[0], p3[1] },
-		{ p4[0], p4[1] }
-	};
+	 for (int i = 0; i < 4; i++)
+	 {
+		 centroid[0] += points[i][0];
+		 centroid[1] += points[i][1];
+	 }
+	 centroid[0] /= 4.0f;
+	 centroid[1] /= 4.0f;
+	 //get one point (0) and sort based off of angle to that point
+	 //center points around centroid
+	 float angles[4];
+	 for (int i = 0; i < 4; i++) {
+		 points[i][0] -= centroid[0];
+		 points[i][1] -= centroid[1];
+		 angles[i] = (float)atan2(points[i][1], points[i][0]);
+	 }
 
-	//get one point (0) and sort based off of angle to that point
-	//center points around centroid
-	for (int i = 0; i < 4; i++) {
-		points[i][0] -= centroid[0];
-		points[i][1] -= centroid[1];
-	}
 
-	float angles[4][2];
-	for (int i = 0; i < 4; i++) {
-		angles[i][0] = atan2(points[i][1], points[i][0]);
-		angles[i][1] = i;
-	}
+	 //bubble sort
+	 for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3 - i; j++) {
+			if (angles[j] > angles[j + 1]) {
+				float tempAngle = angles[j];
+				angles[j] = angles[j + 1];
+				angles[j + 1] = tempAngle;
 
-	//bubble sort
-	for (int i = 0; i < 4 - 1; i++) {
-		// Flag to optimize: if no swaps occur in a pass, the array is sorted
-		bool swapped = false;
-		for (int j = 0; j < 4 - i - 1; j++) {
-			// Compare adjacent elements and swap if out of order (for ascending)
-			if (angles[j][0] > angles[j + 1][0]) {
-				swap(&points[angles[j][1]], &points[angles[j+1][1]]);
-				swap(&angles[j], &angles[j+1]);
-				swapped = true; // A swap occurred
+				float tempPoint[2] = { points[j][0], points[j][1] };
+				points[j][0] = points[j + 1][0];
+				points[j][1] = points[j + 1][1];
+				points[j + 1][0] = tempPoint[0];
+				points[j + 1][1] = tempPoint[1];
 			}
 		}
-		// If no two elements were swapped by inner loop, then break
-		if (swapped == false) {
-			break;
-		}
-	}
+	 }
 
-	return points;
-
-}
-
-void swap(int* a, int* b) {
-	int temp = *a;
-	*a = *b;
-	*b = temp;
-
+	 for (int i = 0; i < 4; i++) {
+		 points[i][0] += centroid[0];
+		 points[i][1] += centroid[1];
+	 }
 }
 
 float distanceSquared(float p1[2], float p2[2])  

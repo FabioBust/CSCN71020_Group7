@@ -29,7 +29,7 @@ int main() { //main FUNCTION
 		case 2:
 			printf_s("Rectangle selected.\n");
 			float points[4][2] = { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} };
-			float* pointsPtr = getPoints(points);
+			getPoints(points);
 
 			if (isRectangle(points[0], points[1], points[2], points[3] )) {  // pass the whole array
 				printf("Yes, these 4 points form a rectangle!\n");
@@ -37,7 +37,8 @@ int main() { //main FUNCTION
 				printf("Area = %.2f\n", area);
 				
 			}
-			printf("Perimeter = %.2f\n", Perimeter(pointSorter(points[0], points[1], points[2], points[3]));
+			pointSorter(points);
+			printf("Perimeter = %.2f\n", Perimeter(points[0], points[1], points[2], points[3]));
 
 			break;
 		case 0:
@@ -81,14 +82,13 @@ float* getTriangleSides(float* triangleSides) {
 	return triangleSides;
 }
 
-float* getPoints(float* points) {
+void getPoints(float points[4][2]) {
 	printf_s("Enter the four points for the rectangle: ");
 	for (int i = 0; i < 4; i++)
 	{
 		printf("Enter the x value of point: ");
-		scanf_s("%f", &points[i*2]);
+		scanf_s("%f", &points[i][0]);
 		printf("Enter the y value of points: ");
-		scanf_s("%f", &points[i*2+1]);
+		scanf_s("%f", &points[i][1]);
 	}
-	return points;
 }
