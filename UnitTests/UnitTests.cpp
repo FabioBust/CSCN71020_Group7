@@ -52,7 +52,7 @@ namespace UnitTests
 
 		TEST_METHOD(AnalyzeTriangle_Scalene) {
 			char* type = analyzeTriangle(3, 4, 5);
-			Assert::AreEqual("Scanlene triangle", type);
+			Assert::AreEqual("Scalene triangle", type);
 		}
 
 		TEST_METHOD(AnalyzeTriangle_NotTriangle)

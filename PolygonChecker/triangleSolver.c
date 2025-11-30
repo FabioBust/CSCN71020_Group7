@@ -20,11 +20,12 @@ char* analyzeTriangle(float side1, float side2, float side3) {
 	
 	// Two sides equal -> Isosceles
 	else if ((side1 == side2 && side1 != side3) || 
-		(side1 == side3 && side1 != side2))
+		(side1 == side3 && side1 != side2) ||
+		(side2 == side3 && side2 != side1))
 	{
 		result = "Isosceles triangle";
 	}
-	else { //Otherwise -> Isosceles
+	else { //Otherwise -> Scalene
 		result = "Scalene triangle";
 	}
 
