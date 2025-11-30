@@ -35,7 +35,14 @@ int main() {
 
             // Only calculate angles if sides form a valid triangle
             if (strcmp(result, "Not a triangle") != 0) {
-                angleCalculator(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+
+                TriangleAngles angles = angleCalculator(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+
+                // Access each angle from the struct and display it
+                printf("The inside angles in the triangle are:\n");
+                printf("Angle 1: %2.f\n", angles.a1);
+                printf("Angle 2: %2.f\n", angles.a2);
+                printf("Angle 3: %2.f\n", angles.a3);
             }
             break;
         }
