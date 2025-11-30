@@ -6,61 +6,94 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTests
 {
-	TEST_CLASS(isTriangleTests)
+	TEST_CLASS(TriangleTests)
 	{
 	public:
-		
-		TEST_METHOD(isTriangleValidInt)
+	  /*---------------------
+		Test for isTriangle()
+		---------------------*/
+		TEST_METHOD(isTriangleValid)
 		{
-			float side1 = 3;
-			float side2 = 4;
-			float side3 = 5;
-
-			bool result = true;
-
-			Assert::AreEqual(result, isTriangle(side1, side2, side3));
-		}
-		TEST_METHOD(isTriangleInValidInt)
-		{
-			float side1 = 1;
-			float side2 = 2;
-			float side3 = 5;
-
-			bool result = false;
-
-			Assert::AreEqual(result, isTriangle(side1, side2, side3));
-		}
-		TEST_METHOD(isTriangleInValidIntZero)
-		{
-			float side1 = 1;
-			float side2 = 0;
-			float side3 = 5;
-
-			bool result = false;
-
-			Assert::AreEqual(result, isTriangle(side1, side2, side3));
+			Assert::IsTrue(isTriangle(3, 4, 5));
+			Assert::IsTrue(isTriangle(3, 3, 3));
+			Assert::IsTrue(isTriangle(3, 3, 5));
+			Assert::IsTrue(isTriangle(3.5f, 5.1f, 4.2f));
+			Assert::IsTrue(isTriangle(5.0f, 2.0f, 2.9f));	
 		}
 
-		TEST_METHOD(isTriangleInValidIntNegative)
+		TEST_METHOD(isTriangleInvalid)
 		{
-			float side1 = 1;
-			float side2 = -2;
-			float side3 = 5;
+			Assert::IsFalse(isTriangle(1, 2, 5));
+			Assert::IsFalse(isTriangle(0, 5, 5));
+			Assert::IsFalse(isTriangle(-1, 2, 3));
+			Assert::IsFalse(isTriangle(3, 3, 6));
+		}
 
-			bool result = false;
+	  /*---------------------------
+		Tests for analyzeTriangle()
+		---------------------------*/
+		TEST_METHOD(AnalyzeTriangle_Equilateral) 
+		{
 
-			Assert::AreEqual(result, isTriangle(side1, side2, side3));
+			char* type = analyzeTriangle(3, 3, 3);
+			Assert::AreEqual("Equilateral triangle", type);
+		}
+
+		TEST_METHOD(AnalyzeTriangle_Isosceles)
+		{
+			char* type1 = analyzeTriangle(3, 3, 5);
+			char* type2 = analyzeTriangle(5, 3, 3);
+			char* type3 = analyzeTriangle(3, 5, 3);
+
+			Assert::AreEqual("Isosceles triangle", type1);
+			Assert::AreEqual("Isosceles triangle", type2);
+			Assert::AreEqual("Isosceles triangle", type3);
+		}
+
+		TEST_METHOD(AnalyzeTriangle_Scalene) {
+			char* type = analyzeTriangle(3, 4, 5);
+			Assert::AreEqual("Scanlene triangle", type);
+		}
+
+		TEST_METHOD(AnalyzeTriangle_NotTriangle)
+		{
+			char* type = analyzeTriangle(3, 2, 8);
+			Assert::AreEqual("Not a triangle", type);
+		}
+
+      /*---------------------------
+		Tests for angleCalculator()
+		---------------------------*/
+		TEST_METHOD(AngleCalculator_Equilateral)
+		{
+			TriangleAngles t = angleCalculator(1, 1, 1);
+			Assert::AreEqual(60.0, t.a1, 0.01);
+			Assert::AreEqual(60.0, t.a2, 0.01);
+			Assert::AreEqual(60.0, t.a3, 0.01);
+		}
+
+		TEST_METHOD(AngleCalculator_Isosceles)
+		{
+			TriangleAngles t = angleCalculator(3, 3, 5);
+			Assert::AreEqual(34.0, t.a1, 0.01);
+			Assert::AreEqual(34.0, t.a2, 0.01);
+			Assert::AreEqual(113.0, t.a3, 0.01);
+		}
+
+		TEST_METHOD(AngleCalculator_Scalene)
+		{
+			TriangleAngles t = angleCalculator(3, 4, 5);
+			Assert::AreEqual(36.87, t.a1, 0.01);
+			Assert::AreEqual(53.13, t.a2, 0.01);
+			Assert::AreEqual(90.0, t.a3, 0.01);
 		}
 	};
-	TEST_CLASS(TriangleAngleTests)
-	{
-		TEST_METHOD(isTriangleInValidIntNegative) //rewrite the angle solver to return values for testing
-		{
-			float side1 = 1;
-			float side2 = 1;
-			float side3 = 1;
 
-			angleCalculator(side1, side2, side3);
+	TEST_CLASS(RectangleTests)
+	{
+		TEST_METHOD(Perimeter_Square)
+		{
+
 		}
 	};
 }
