@@ -297,5 +297,46 @@ namespace UnitTests
 			Assert::IsNotNull(sorted); // Should return a valide array even if collinear
 			free(sorted);
 		}
+
+		/*--------------------------
+		  Test for distanceSquared()
+		  Calculates the squared distance between two points
+		  Used to calculate perimeter and area
+		  --------------------------*/
+		TEST_METHOD(Distance_PositivePoints)
+		{
+			float p1[2] = { 1,2 };
+			float p2[2] = { 4,6 };
+			float result = distanceSquared(p1, p2);
+
+			Assert::AreEqual(25.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Distance_NegativePoints)
+		{
+			float p1[2] = { -1,-2 };
+			float p2[2] = { -4,-6 };
+			float result = distanceSquared(p1, p2);
+
+			Assert::AreEqual(25.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Distance_MixedPoints)
+		{
+			float p1[2] = { -1,2 };
+			float p2[2] = { 3,-2 };
+			float result = distanceSquared(p1, p2);
+
+			Assert::AreEqual(32.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Distance_FloatingPoints)
+		{
+			float p1[2] = { 1.5f,2.5f };
+			float p2[2] = { 4.1f,6.2f };
+			float result = distanceSquared(p1, p2);
+
+			Assert::AreEqual(20.45f, result, 0.01f);
+		}
 	};
 }
