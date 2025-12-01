@@ -30,22 +30,15 @@ float Perimeter(float p1[2], float p2[2], float p3[2], float p4[2]) {
 }
 
 // Calculates area of a rectangle from 4 points
-// Uses largest distance from first point as diagonal
 float Area(float p1[2], float p2[2], float p3[2], float p4[2]) {
-    float points[4][2] = { {p1[0],p1[1]}, {p2[0],p2[1]}, {p3[0],p3[1]}, {p4[0],p4[1]} };
-
-    float d1 = distanceSquared(points[0], points[1]); // distance from p0 to p1 squared
-    float d2 = distanceSquared(points[0], points[2]); // distance from p0 to p2 squared
-    float d3 = distanceSquared(points[0], points[3]); // distance from p0 to p3 squared
-  
-    float maxD = fmaxf(fmaxf(d1, d2), d3); // Identify the diagonal (largest distance)
-
-    float side1sq = 0, side2sq = 0; // To store squared lengths of sides
-    if (maxD == d1) { side1sq = d2; side2sq = d3; } // If d1 is diagonal, sides are d2 & d3
-    else if (maxD == d2) { side1sq = d1; side2sq = d3; }
-    else { side1sq = d1; side2sq = d2; } // If d3 is diagonal, sides are d1 & d2
-
-    return sqrtf(side1sq) * sqrtf(side2sq); // Multiply side lengths to get area
+    float(*sorted)[2] = pointSorter(p1, p2, p3, p4); // Sort 4 points of the rectangle
+    // Calculate width and height
+    float width = sqrtf(distanceSquared(sorted[0], sorted[1]));
+    float height = sqrtf(distanceSquared(sorted[1], sorted[2]));
+   
+    free(sorted);
+    
+    return width * height; // area = width * height
 }
 
 // Sorts points in clockwise order around centroid
