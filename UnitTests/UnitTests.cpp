@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../PolygonChecker/triangleSolver.c"
+#include "../PolygonChecker/rectangleSolver.c"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -91,9 +92,139 @@ namespace UnitTests
 
 	TEST_CLASS(RectangleTests)
 	{
+		/*---------------------
+		  Tests for Perimeter()
+		  ---------------------*/
 		TEST_METHOD(Perimeter_Square)
 		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 2 };
+			float p3[2] = { 2, 2 };
+			float p4[2] = { 2, 0 };
 
+			float result = Perimeter(p1, p2, p3, p4);
+			Assert::AreEqual(8.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Perimeter_Rectangle)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 3 };
+			float p3[2] = { 5, 3 };
+			float p4[2] = { 5, 0 };
+
+			float result = Perimeter(p1, p2, p3, p4);
+			Assert::AreEqual(16.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Perimeter_NotRectangle)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 2, 1 };
+			float p3[2] = { 3, 3 };
+			float p4[2] = { 1, 2 };
+
+			float result = Perimeter(p1, p2, p3, p4);
+			Assert::AreEqual(8.94427f, result, 0.01f);
+		}
+
+		TEST_METHOD(Perimeter_NotRectangleNegativePoints)
+		{
+			float p1[2] = { 0.5f, 0.2f };
+			float p2[2] = { 3.1f, 0.7f };
+			float p3[2] = { 2.6f, 4.2f };
+			float p4[2] = { -0.3f, 3.8f };
+
+			float result = Perimeter(p1, p2, p3, p4);
+			Assert::AreEqual(12.8f, result, 0.01f);
+		}
+
+		/*----------------
+		  Tests for Area()
+		  ----------------*/
+		TEST_METHOD(Area_Rectangle)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 3 };
+			float p3[2] = { 5, 3 };
+			float p4[2] = { 5, 0 };
+
+			float result = Area(p1, p2, p3, p4);
+			Assert::AreEqual(15.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Area_Square)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 8 };
+			float p3[2] = { 8, 8 };
+			float p4[2] = { 8, 0 };
+
+			float result = Area(p1, p2, p3, p4);
+			Assert::AreEqual(64.0f, result, 0.01f);
+		}
+
+		TEST_METHOD(Area_RotatedRectangle)
+		{
+			float p1[2] = { 0,0 };
+			float p2[2] = { 3.0f,1.732f };
+			float p3[2] = { 0,6.995f };
+			float p4[2] = { -3,5.196f };
+
+			float result = Area(p1, p2, p3, p4);
+			Assert::AreEqual(20.985f, result, 0.1f);
+		}
+
+	  /*----------------------
+		Test for isRectangle()
+		----------------------*/
+		TEST_METHOD(IsRectangle_True)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 2 };
+			float p3[2] = { 3, 2 };
+			float p4[2] = { 3, 0 };
+
+			bool result = isRectangle(p1, p2, p3, p4);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(IsRectangle_False)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 1, 2 };
+			float p3[2] = { 3, 2 };
+			float p4[2] = { 3, 0 };
+
+			bool result = isRectangle(p1, p2, p3, p4);
+			Assert::IsFalse(result);
+		}
+
+		/*----------------------
+		  Test for pointSorter()
+		  ----------------------*/
+		TEST_METHOD(PointSorter_Clockwise)
+		{
+			float p1[2] = { 3.2f, 1.5f };
+			float p2[2] = { 0.8f, 4.7f };
+			float p3[2] = { 6.1f, 2.3f };
+			float p4[2] = { 1.4f, 0.9f };
+
+			float(*sorted)[2] = pointSorter(p1, p2, p3, p4);
+
+			Assert::AreEqual(1.4f, sorted[0][0], 0.01f);
+			Assert::AreEqual(0.9f, sorted[0][1], 0.01f);
+
+			Assert::AreEqual(3.2f, sorted[1][0], 0.01f);
+			Assert::AreEqual(1.5f, sorted[1][1], 0.01f);
+
+			Assert::AreEqual(6.1f, sorted[2][0], 0.01f);
+			Assert::AreEqual(2.3f, sorted[2][1], 0.01f);
+
+			Assert::AreEqual(0.8f, sorted[3][0], 0.01f);
+			Assert::AreEqual(4.7f, sorted[3][1], 0.01f);
+
+			free(sorted);
 		}
 	};
 }

@@ -87,7 +87,7 @@ float(*pointSorter(float p1[2], float p2[2], float p3[2], float p4[2]))[2] {
     }
 
     // Allocate dynamic array for result
-    float(*result)[2] = malloc(4 * sizeof(float[2]));
+    float(*result)[2] = (float(*)[2])malloc(4 * sizeof(float[2]));
     if (result == NULL) {
         // Allocation failed, return NULL to avoid dereferencing
         return NULL;
