@@ -75,9 +75,9 @@ namespace UnitTests
 		TEST_METHOD(AngleCalculator_Isosceles)
 		{
 			TriangleAngles t = angleCalculator(3, 3, 5);
-			Assert::AreEqual(34.0, t.a1, 0.01);
-			Assert::AreEqual(34.0, t.a2, 0.01);
-			Assert::AreEqual(113.0, t.a3, 0.01);
+			Assert::AreEqual(33.5573, t.a1, 0.01);
+			Assert::AreEqual(33.5573, t.a2, 0.01);
+			Assert::AreEqual(112.885, t.a3, 0.01);
 		}
 
 		TEST_METHOD(AngleCalculator_Scalene)
