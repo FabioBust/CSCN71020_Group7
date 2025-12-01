@@ -7,6 +7,9 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTests
 {
+  /*==============
+	TRIANGLE TESTS
+	==============*/
 	TEST_CLASS(TriangleTests)
 	{
 	public:
@@ -32,6 +35,7 @@ namespace UnitTests
 
 	  /*---------------------------
 		Tests for analyzeTriangle()
+		Checks the type of triangle based on side lengths
 		---------------------------*/
 		TEST_METHOD(AnalyzeTriangle_Equilateral) 
 		{
@@ -42,6 +46,7 @@ namespace UnitTests
 
 		TEST_METHOD(AnalyzeTriangle_Isosceles)
 		{
+			// Checks all permutations of isosceles triangle sides
 			char* type1 = analyzeTriangle(3, 3, 5);
 			char* type2 = analyzeTriangle(5, 3, 3);
 			char* type3 = analyzeTriangle(3, 5, 3);
@@ -64,6 +69,7 @@ namespace UnitTests
 
       /*---------------------------
 		Tests for angleCalculator()
+		Checks if angles are calculated correctly using the law of cosines
 		---------------------------*/
 		TEST_METHOD(AngleCalculator_Equilateral)
 		{
@@ -89,11 +95,14 @@ namespace UnitTests
 			Assert::AreEqual(90.0, t.a3, 0.01);
 		}
 	};
-
+  /*===============================
+	RECTANGLE / QUADRILATERAL TESTS
+	===============================*/
 	TEST_CLASS(RectangleTests)
 	{
 		/*---------------------
 		  Tests for Perimeter()
+		  Verifies the perimeter calculation for quadrilaterals
 		  ---------------------*/
 		TEST_METHOD(Perimeter_Square)
 		{
@@ -141,6 +150,7 @@ namespace UnitTests
 
 		TEST_METHOD(Perimeter_Rhombus)
 		{
+			// Rhombus -> all sides are equal, angles not 90 degrees
 			float p1[2] = { 0, 0 };
 			float p2[2] = { 2, 1 };
 			float p3[2] = { 4, 0 };
@@ -152,6 +162,7 @@ namespace UnitTests
 
 		/*----------------
 		  Tests for Area()
+		  Verifies area calculation for rectangles
 		  ----------------*/
 		TEST_METHOD(Area_Rectangle)
 		{
@@ -177,6 +188,7 @@ namespace UnitTests
 
 		TEST_METHOD(Area_RotatedRectangle)
 		{
+			// Rotated rectangle test that made us realized area formula could use improvement
 			float p1[2] = { 0,0 };
 			float p2[2] = { 3.0f,1.732f };
 			float p3[2] = { 0,6.995f };
@@ -188,6 +200,7 @@ namespace UnitTests
 
 	  /*----------------------
 		Test for isRectangle()
+		Checks if a quadrilateral is a rectangle
 		----------------------*/
 		TEST_METHOD(IsRectangle_True)
 		{
@@ -246,6 +259,7 @@ namespace UnitTests
 
 		/*----------------------
 		  Test for pointSorter()
+		  Ensures points are sorted clockwise from centroid
 		  ----------------------*/
 		TEST_METHOD(PointSorter_Clockwise)
 		{
@@ -273,13 +287,14 @@ namespace UnitTests
 
 		TEST_METHOD(PointSorter_Collinear)
 		{
+			// All points on a line (edge case)
 			float p1[2] = { 0, 0 };
 			float p2[2] = { 1, 1 };
 			float p3[2] = { 2, 2 };
 			float p4[2] = { 3, 3 };
 		    float(*sorted)[2] = pointSorter(p1, p2, p3, p4);
 
-			Assert::IsNotNull(sorted);
+			Assert::IsNotNull(sorted); // Should return a valide array even if collinear
 			free(sorted);
 		}
 	};
