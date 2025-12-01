@@ -13,7 +13,7 @@ namespace UnitTests
 	  /*---------------------
 		Test for isTriangle()
 		---------------------*/
-		TEST_METHOD(isTriangleValid)
+		TEST_METHOD(isTriangle_Valid)
 		{
 			Assert::IsTrue(isTriangle(3, 4, 5));
 			Assert::IsTrue(isTriangle(3, 3, 3));
@@ -22,7 +22,7 @@ namespace UnitTests
 			Assert::IsTrue(isTriangle(5.0f, 2.0f, 2.9f));	
 		}
 
-		TEST_METHOD(isTriangleInvalid)
+		TEST_METHOD(isTriangle_Invalid)
 		{
 			Assert::IsFalse(isTriangle(1, 2, 5));
 			Assert::IsFalse(isTriangle(0, 5, 5));
@@ -139,6 +139,17 @@ namespace UnitTests
 			Assert::AreEqual(12.8f, result, 0.01f);
 		}
 
+		TEST_METHOD(Perimeter_Rhombus)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 2, 1 };
+			float p3[2] = { 4, 0 };
+			float p4[2] = { 2, -1 };
+
+			float result = Perimeter(p1, p2, p3, p4);
+			Assert::AreEqual(8.944f, result, 0.01f);
+		}
+
 		/*----------------
 		  Tests for Area()
 		  ----------------*/
@@ -200,6 +211,39 @@ namespace UnitTests
 			Assert::IsFalse(result);
 		}
 
+		TEST_METHOD(IsRectangle_Rotated)
+		{
+			float p1[2] = { 1, 1 };
+			float p2[2] = { 4, 2 };
+			float p3[2] = { 3, 5 };
+			float p4[2] = { 0, 4 };
+
+			bool result = isRectangle(p1, p2, p3, p4);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(IsRectangle_NegativePoints)
+		{
+			float p1[2] = { -2, -1 };
+			float p2[2] = { -2, 2 };
+			float p3[2] = { 1, 2 };
+			float p4[2] = { 1, -1 };
+
+			bool result = isRectangle(p1, p2, p3, p4);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(IsRectangle_AlmostRectangle)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 0, 2 };
+			float p3[2] = { 3, 2.1f };
+			float p4[2] = { 3, 0 };
+
+			bool result = isRectangle(p1, p2, p3, p4);
+			Assert::IsTrue(result);
+		}
+
 		/*----------------------
 		  Test for pointSorter()
 		  ----------------------*/
@@ -224,6 +268,18 @@ namespace UnitTests
 			Assert::AreEqual(0.8f, sorted[3][0], 0.01f);
 			Assert::AreEqual(4.7f, sorted[3][1], 0.01f);
 
+			free(sorted);
+		}
+
+		TEST_METHOD(PointSorter_Collinear)
+		{
+			float p1[2] = { 0, 0 };
+			float p2[2] = { 1, 1 };
+			float p3[2] = { 2, 2 };
+			float p4[2] = { 3, 3 };
+		    float(*sorted)[2] = pointSorter(p1, p2, p3, p4);
+
+			Assert::IsNotNull(sorted);
 			free(sorted);
 		}
 	};
